@@ -11,20 +11,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>Table Department</h1>
-        <form method="post" action="http://localhost/homework_4/index.php?controller=department&action={{ action }}">
+        <h1>Table Students</h1>
+        <form method="post" action="http://localhost/homework_4/index.php?controller=students&action={{ action }}">
             <div class="row">
-                <label for="d_name">Department Name:</label>
-                <input type="hidden" id="depart_id" name="depart_id" value="{{ depart_id }}">
-                <input class="form-control" type="text" id="d_name" name="d_name" value="{{ d_name }}">
+                <label for="first_name">First Name:</label>
+                <input type="hidden" id="student_id" name="student_id" value="{{ student_id }}">
+                <input class="form-control" type="text" id="first_name" name="first_name" value="{{ first_name }}">
             </div>
             <div class="row">
-                <label for="city">University_ID:</label>
-                <select name="univer_id" id="univer_id">
-                    {% for result in resultsDataUniversity %}
-                        <option value="{{ result.id }}" {% if result.id == univer_id %} selected {% endif %}>{{ result.univer_name }}</option>
-                    {% endfor %}
-                </select>
+                <label for="last_name">Last Name:</label>
+                <input class="form-control" type="text" id="last_name" name="last_name" value="{{ last_name }}">
+            </div>
+            <div class="row">
+                <label for="email">Email:</label>
+                <input class="form-control" type="text" id="email" name="email" value="{{ email }}">
+            </div>
+            <div class="row">
+                <label for="tel">Phone Number:</label>
+                <input class="form-control" type="text" id="tel" name="tel" value="{{ tel }}">
             </div>
             <div class="row">
                 <input class="btn btn-default" type="submit" value="{{ action }}">

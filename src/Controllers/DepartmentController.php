@@ -8,17 +8,26 @@
 
 namespace Controllers;
 
-use Repositories\DataRepository;
 use Repositories\UniversityRepository;
 use Repositories\DepartmentRepository;
+use Repositories\StudentsRepository;
+use Repositories\DisciplinesRepository;
+use Repositories\TeacherRepository;
+use Repositories\HomeworkRepository;
 
 class DepartmentController
 {
-    private $repository;
+    private $resultsDepartment;
 
     private $resultsUniversity;
 
-    private $resultsData;
+    private $resultsStudents;
+
+    private $resultsDisciplines;
+
+    private $resultsTeacher;
+
+    private $resultsHomework;
 
     private $loader;
 
@@ -30,9 +39,12 @@ class DepartmentController
      */
     public function __construct($connector)
     {
-        $this->repository = new DepartmentRepository($connector);
+        $this->resultsDepartment = new DepartmentRepository($connector);
         $this->resultsUniversity = new UniversityRepository($connector);
-        $this->resultsData = new DataRepository($connector);
+        $this->resultsStudents = new StudentsRepository($connector);
+        $this->resultsDisciplines = new DisciplinesRepository($connector);
+        $this->resultsTeacher = new TeacherRepository($connector);
+        $this->resultsHomework = new HomeworkRepository($connector);
         $this->loader = new \Twig_Loader_Filesystem('src/Views/templates/');
         $this->twig = new \Twig_Environment($this->loader, array(
             'cache' => false,
@@ -45,8 +57,21 @@ class DepartmentController
     public function indexAction()
     {
         $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
-        $resultsDataDepartment = $this->repository->findAll(1000, 0);
-        return $this->twig->render('tables.html.twig', ['resultsDataUniversity' => $resultsDataUniversity, 'resultsDataDepartment' => $resultsDataDepartment ]);
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+        $resultsDataStudents = $this->resultsStudents->findAll(1000, 0);
+        $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
+        $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);
+        $resultsDataHomework = $this->resultsHomework->findAll(1000, 0);
+        $get_table = $_GET['controller'];
+        return $this->twig->render('tables.html.twig', [
+            'resultsDataUniversity' => $resultsDataUniversity,
+            'resultsDataDepartment' => $resultsDataDepartment,
+            'resultsDataStudents' => $resultsDataStudents,
+            'resultsDataDisciplines' => $resultsDataDisciplines,
+            'resultsDataTeacher' => $resultsDataTeacher,
+            'resultsDataHomework' => $resultsDataHomework,
+            'get_table' => $get_table
+        ]);
     }
 
     /**
@@ -55,7 +80,7 @@ class DepartmentController
     public function createAction()
     {
         if (isset($_POST['d_name'])) {
-            $this->repository->insert(
+            $this->resultsDepartment->insert(
                 [
                     'd_name' => $_POST['d_name'],
                     'univer_id'  => $_POST['univer_id'],
@@ -63,10 +88,11 @@ class DepartmentController
             );
             return $this->indexAction();
         }
+        $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
         return $this->twig->render('department_form.html.twig',
             [
                 'd_name' => '',
-                'univer_id' => '',
+                'resultsDataUniversity' => $resultsDataUniversity,
                 'action' => 'create'
             ]
         );
@@ -78,7 +104,7 @@ class DepartmentController
     public function editAction()
     {
         if (isset($_POST['d_name'])) {
-            $this->repository->update(
+            $this->resultsDepartment->update(
                 [
                     'd_name' => $_POST['d_name'],
                     'univer_id'  => $_POST['univer_id'],
@@ -88,13 +114,15 @@ class DepartmentController
             return $this->indexAction();
         }
 
-        $resultsData = $this->repository->find((int) $_GET['id']);
+        $resultsData = $this->resultsDepartment->find((int) $_GET['id']);
 
+        $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
         return $this->twig->render('department_form.html.twig',
             [
                 'd_name' => $resultsData['d_name'],
                 'univer_id' => $resultsData['univer_id'],
                 'depart_id' => $resultsData['id'],
+                'resultsDataUniversity' => $resultsDataUniversity,
                 'action' => 'edit'
             ]
         );
@@ -107,17 +135,18 @@ class DepartmentController
     {
         if (isset($_POST['d_name'])) {
             $id = (int) $_POST['depart_id'];
-            $this->repository->remove(['id' => $id]);
+            $this->resultsDepartment->remove(['id' => $id]);
             return $this->indexAction();
         }
 
-        $resultsData = $this->repository->find((int) $_GET['id']);
-
+        $resultsData = $this->resultsDepartment->find((int) $_GET['id']);
+        $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
         return $this->twig->render('department_form.html.twig',
             [
                 'd_name' => $resultsData['d_name'],
                 'univer_id' => $resultsData['univer_id'],
                 'depart_id' => $resultsData['id'],
+                'resultsDataUniversity' => $resultsDataUniversity,
                 'action' => 'delete'
             ]
         );

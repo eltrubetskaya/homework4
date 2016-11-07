@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Table HomeWork</h1>
+        <form method="post" action="http://localhost/homework_4/index.php?controller=homework&action={{ action }}">
+            <div class="row">
+                <label for="hw_name">HomeWork Name:</label>
+                <input type="hidden" id="hw_id" name="hw_id" value="{{ hw_id }}">
+                <input class="form-control" type="text" id="hw_name" name="hw_name" value="{{ hw_name }}">
+            </div>
+            <div class="row">
+                <label for="status">Status:</label>
+                <select name="status" id="status">
+                    <option value="0" {% if status == 0 %} selected {% endif %}>0</option>
+                    <option value="1" {% if status == 1 %} selected {% endif %}>1</option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="disciplines_id">Discipline_ID:</label>
+                <select name="disciplines_id" id="disciplines_id">
+                    {% for result in resultsDataDisciplines %}
+                        <option value="{{ result.id }}" {% if result.id == disciplines_id %} selected {% endif %}>{{ result.disc_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <label for="teacher_id">Teacher_ID:</label>
+                <select name="teacher_id" id="teacher_id">
+                    {% for result in resultsDataTeacher %}
+                        <option value="{{ result.id }}" {% if result.id == teacher_id %} selected {% endif %}>{{ result.first_name }} {{ result.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <label for="student_id">Student_ID:</label>
+                <select name="student_id" id="student_id">
+                    {% for result in resultsDataStudents %}
+                        <option value="{{ result.id }}" {% if result.id == student_id %} selected {% endif %}>{{ result.first_name }} {{ result.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <input class="btn btn-default" type="submit" value="{{ action }}">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

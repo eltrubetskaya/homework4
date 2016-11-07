@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: elena
- * Date: 06.11.16
- * Time: 0:49
+ * Date: 07.11.16
+ * Time: 18:10
  */
 
 namespace Controllers;
@@ -15,29 +15,33 @@ use Repositories\DisciplinesRepository;
 use Repositories\TeacherRepository;
 use Repositories\HomeworkRepository;
 
-class UniversityController
+class TeacherController
 {
-    private $resultsUniversity;
+    private $resultsStudents;
 
     private $resultsDepartment;
 
-    private $resultsStudents;
+    private $resultsUniversity;
 
     private $resultsDisciplines;
+
+    private $resultsTeacher;
+
+    private $resultsHomework;
 
     private $loader;
 
     private $twig;
 
     /**
-     * UniversityController constructor.
+     * TeacherController constructor.
      * @param $connector
      */
     public function __construct($connector)
     {
-        $this->resultsUniversity = new UniversityRepository($connector);
-        $this->resultsDepartment = new DepartmentRepository($connector);
         $this->resultsStudents = new StudentsRepository($connector);
+        $this->resultsDepartment = new DepartmentRepository($connector);
+        $this->resultsUniversity = new UniversityRepository($connector);
         $this->resultsDisciplines = new DisciplinesRepository($connector);
         $this->resultsTeacher = new TeacherRepository($connector);
         $this->resultsHomework = new HomeworkRepository($connector);
@@ -52,9 +56,9 @@ class UniversityController
      */
     public function indexAction()
     {
-        $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
-        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
         $resultsDataStudents = $this->resultsStudents->findAll(1000, 0);
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+        $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
         $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
         $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);
         $resultsDataHomework = $this->resultsHomework->findAll(1000, 0);
@@ -75,22 +79,23 @@ class UniversityController
      */
     public function createAction()
     {
-        if (isset($_POST['univer_name'])) {
-            $this->resultsUniversity->insert(
+        if (isset($_POST['first_name'])) {
+            $this->resultsTeacher->insert(
                 [
-                    'univer_name' => $_POST['univer_name'],
-                    'city'  => $_POST['city'],
-                    'site'      => $_POST['site'],
+                    'first_name' => $_POST['first_name'],
+                    'last_name'  => $_POST['last_name'],
+                    'department_id' => $_POST['department_id'],
                 ]
             );
 
             return $this->indexAction();
         }
-        return $this->twig->render('university_form.html.twig',
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+        return $this->twig->render('teacher_form.html.twig',
             [
-                'univer_name' => '',
-                'city' => '',
-                'site' => '',
+                'first_name' => '',
+                'last_name' => '',
+                'resultsDataDepartment' => $resultsDataDepartment,
                 'action' => 'create'
             ]
         );
@@ -101,26 +106,29 @@ class UniversityController
      */
     public function editAction()
     {
-        if (isset($_POST['univer_name'])) {
-            $this->resultsUniversity->update(
+        if (isset($_POST['first_name'])) {
+            $this->resultsTeacher->update(
                 [
-                    'univer_name' => $_POST['univer_name'],
-                    'city'  => $_POST['city'],
-                    'site'  => $_POST['site'],
-                    'id'    => (int) $_POST['univer_id'],
+                    'first_name' => $_POST['first_name'],
+                    'last_name'  => $_POST['last_name'],
+                    'department_id'      => $_POST['department_id'],
+                    'id'    => (int) $_POST['th_id'],
                 ]
             );
             return $this->indexAction();
         }
 
-        $resultsData = $this->resultsUniversity->find((int) $_GET['id']);
+        $resultsData = $this->resultsTeacher->find((int) $_GET['id']);
 
-        return $this->twig->render('university_form.html.twig',
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+
+        return $this->twig->render('teacher_form.html.twig',
             [
-                'univer_name' => $resultsData['univer_name'],
-                'city' => $resultsData['city'],
-                'site' => $resultsData['site'],
-                'univer_id' => $resultsData['id'],
+                'first_name' => $resultsData['first_name'],
+                'last_name' => $resultsData['last_name'],
+                'department_id' => $resultsData['department_id'],
+                'th_id' => $resultsData['id'],
+                'resultsDataDepartment' => $resultsDataDepartment,
                 'action' => 'edit'
             ]
         );
@@ -131,20 +139,21 @@ class UniversityController
      */
     public function deleteAction()
     {
-        if (isset($_POST['univer_id'])) {
-            $id = (int) $_POST['univer_id'];
-            $this->resultsUniversity->remove(['id' => $id]);
+        if (isset($_POST['th_id'])) {
+            $id = (int) $_POST['th_id'];
+            $this->resultsTeacher->remove(['id' => $id]);
             return $this->indexAction();
         }
 
-        $resultsData = $this->resultsUniversity->find((int) $_GET['id']);
-
-        return $this->twig->render('university_form.html.twig',
+        $resultsData = $this->resultsTeacher->find((int) $_GET['id']);
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+        return $this->twig->render('teacher_form.html.twig',
             [
-                'univer_name' => $resultsData['univer_name'],
-                'city' => $resultsData['city'],
-                'site' => $resultsData['site'],
-                'univer_id' => $resultsData['id'],
+                'first_name' => $resultsData['first_name'],
+                'last_name' => $resultsData['last_name'],
+                'department_id' => $resultsData['department_id'],
+                'th_id' => $resultsData['id'],
+                'resultsDataDepartment' => $resultsDataDepartment,
                 'action' => 'delete'
             ]
         );

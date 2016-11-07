@@ -19,4 +19,24 @@ interface DataInterface
      * @return mixed
      */
     public function insertDataDepart();
+
+    /**
+     * @return mixed
+     */
+    public function insertDataStudents();
+
+    /**
+     * @return mixed
+     */
+    public function insertDataDisciplines();
+
+    /**
+     * @return mixed
+     */
+    public function insertDataTeacher();
+
+    /**
+     * @return mixed
+     */
+    public function insertDataHomework();
 }

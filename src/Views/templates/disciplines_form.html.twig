@@ -11,18 +11,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>Table Department</h1>
-        <form method="post" action="http://localhost/homework_4/index.php?controller=department&action={{ action }}">
+        <h1>Table Disciplines</h1>
+        <form method="post" action="http://localhost/homework_4/index.php?controller=disciplines&action={{ action }}">
             <div class="row">
-                <label for="d_name">Department Name:</label>
-                <input type="hidden" id="depart_id" name="depart_id" value="{{ depart_id }}">
-                <input class="form-control" type="text" id="d_name" name="d_name" value="{{ d_name }}">
+                <label for="disc_name">Disciplines Name:</label>
+                <input type="hidden" id="disc_id" name="disc_id" value="{{ disc_id }}">
+                <input class="form-control" type="text" id="disc_name" name="disc_name" value="{{ disc_name }}">
             </div>
             <div class="row">
-                <label for="city">University_ID:</label>
-                <select name="univer_id" id="univer_id">
-                    {% for result in resultsDataUniversity %}
-                        <option value="{{ result.id }}" {% if result.id == univer_id %} selected {% endif %}>{{ result.univer_name }}</option>
+                <label for="city">Department_ID:</label>
+                <select name="department_id" id="department_id">
+                    {% for result in resultsDataDepartment %}
+                        <option value="{{ result.id }}" {% if result.id == department_id %} selected {% endif %}>{{ result.d_name }}</option>
                     {% endfor %}
                 </select>
             </div>
