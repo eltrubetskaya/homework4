@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>HomeWork_4</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<section class="jumbotron">
+    <div class="container">
+        <p><a href="index.php?controller=data&action=insert" class="btn btn-primary btn-lg" role="button" title="Create Univer"><span class="glyphicon glyphicon-plus"></span> Insert Data in Table's</a></p>
+    </div>
+</section>
+<main class="container">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Table University
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="pull-left" style="margin-bottom: 10px">
+                        <a href="index.php?controller=university&action=create" class="btn btn-primary" role="button" title="Create Univer"><span class="glyphicon glyphicon-plus"></span> Create University</a>
+                    </div>
+    <table class="table table-bordered col-lg-12">
+        <tr>
+            <th>#id</th>
+            <th>University_Name</th>
+            <th>City</th>
+            <th>Site</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for result in resultsDataUniversity %}
+            <tr>
+                <td>{{ result.id }}</td>
+                <td>{{ result.univer_name }}</td>
+                <td>{{ result.city }}</td>
+                <td>{{ result.site }}</td>
+                <td><a href="index.php?controller=university&action=edit&id={{ result.id }}" class="btn btn-warning" role="button" title="Edit University {{ result.univer_name }}"><span class="glyphicon glyphicon-pencil"></span></a></td><td> <a href="index.php?controller=university&action=delete&id={{ result.id }}" class="btn btn-danger" role="button" title="Delete University {{ result.univer_name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+                </div>
+            </div>
+        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                  Table Department
+              </a>
+            </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+          <div class="pull-left" style="margin-bottom: 10px">
+              <a href="index.php?controller=department&action=create" class="btn btn-primary" role="button" title="Create Department"><span class="glyphicon glyphicon-plus"></span> Create Department</a>
+          </div>
+          <table class="table table-bordered col-lg-12">
+              <tr>
+                  <th>#id</th>
+                  <th>Department_Name</th>
+                  <th>University_ID</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+              {% for result in resultsDataDepartment %}
+                  <tr>
+                      <td>{{ result.id }}</td>
+                      <td>{{ result.d_name }}</td>
+                      <td>{{ result.univer_id }}</td>
+                      <td><a href="index.php?controller=department&action=edit&id={{ result.id }}" class="btn btn-warning" role="button" title="Edit Department {{ result.d_name }}"><span class="glyphicon glyphicon-pencil"></span></a></td><td> <a href="index.php?controller=department&action=delete&id={{ result.id }}" class="btn btn-danger" role="button" title="Delete Department {{ result.d_name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                  </tr>
+              {% endfor %}
+          </table>
+           </div>
+    </div>
+  </div>
+         </div>
+</main>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
