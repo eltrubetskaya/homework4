@@ -1,0 +1,25 @@
+{
+    "name": "veta/homework",
+    "description": "HomeWork_4 DB",
+    "authors": [
+        {
+            "name": "el.trubetskaya",
+            "email": "el.trubetskaya@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Controllers\\": "src/Controllers",
+            "Repositories\\": "src/Repositories",
+            "Views\\": "src/Views"
+        }
+    },
+    "require": {
+        "php": "^5.3.3|^7.0",
+        "ext-pdo": "*",
+        "ext-mysqlnd": "*",
+        "fzaninotto/faker": "^1.6",
+        "twig/twig": "^2.0@dev",
+        "twitter/bootstrap": "^3.3"
+    }
+}
