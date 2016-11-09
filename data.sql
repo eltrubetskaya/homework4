@@ -1,7 +1,7 @@
--- CREATE DATABASE db_homework_4 DEFAULT CHARACTER SET utf8;
--- GRANT USAGE ON *.* TO veta@localhost IDENTIFIED BY 'veta';
--- GRANT ALL ON db_homework_4.* TO veta@localhost;
--- GRANT SUPER ON *.* TO 'veta'@'localhost';
+CREATE DATABASE db_homework_4 DEFAULT CHARACTER SET utf8;
+GRANT USAGE ON *.* TO veta@localhost IDENTIFIED BY 'veta';
+GRANT ALL ON db_homework_4.* TO veta@localhost;
+GRANT SUPER ON *.* TO 'veta'@'localhost';
 
 USE db_homework_4;
 
