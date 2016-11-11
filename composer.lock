@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "76e24a1c13eebda640a00a328b783bfd",
-    "content-hash": "1c5e698d0b183b8fc7395f1032b532db",
+    "hash": "a795f8192b75f158269ddb09807011e6",
+    "content-hash": "c0f867c1d29df92259312666c50220ad",
     "packages": [
         {
             "name": "fzaninotto/faker",
@@ -56,47 +56,57 @@
             "time": "2016-04-29 12:21:54"
         },
         {
-            "name": "nikic/fast-route",
-            "version": "v1.0.1",
+            "name": "symfony/http-foundation",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nikic/FastRoute.git",
-                "reference": "8ea928195fa9b907f0d6e48312d323c1a13cc2af"
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "f21e5a8b88274b7720779aa88f9c02c6d6ec08d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/8ea928195fa9b907f0d6e48312d323c1a13cc2af",
-                "reference": "8ea928195fa9b907f0d6e48312d323c1a13cc2af",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/f21e5a8b88274b7720779aa88f9c02c6d6ec08d7",
+                "reference": "f21e5a8b88274b7720779aa88f9c02c6d6ec08d7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.5.9",
+                "symfony/polyfill-mbstring": "~1.1"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.8|~3.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "FastRoute\\": "src/"
+                    "Symfony\\Component\\HttpFoundation\\": ""
                 },
-                "files": [
-                    "src/functions.php"
+                "exclude-from-classmap": [
+                    "/Tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Nikita Popov",
-                    "email": "nikic@php.net"
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Fast request router for PHP",
-            "keywords": [
-                "router",
-                "routing"
-            ],
-            "time": "2016-06-12 19:08:51"
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-10-24 15:52:44"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -158,21 +168,96 @@
             "time": "2016-05-18 14:26:46"
         },
         {
+            "name": "symfony/routing",
+            "version": "v3.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/routing.git",
+                "reference": "8edf62498a1a4c57ba317664a4b698339c10cdf6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/8edf62498a1a4c57ba317664a4b698339c10cdf6",
+                "reference": "8edf62498a1a4c57ba317664a4b698339c10cdf6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "conflict": {
+                "symfony/config": "<2.8"
+            },
+            "require-dev": {
+                "doctrine/annotations": "~1.0",
+                "doctrine/common": "~2.2",
+                "psr/log": "~1.0",
+                "symfony/config": "~2.8|~3.0",
+                "symfony/expression-language": "~2.8|~3.0",
+                "symfony/http-foundation": "~2.8|~3.0",
+                "symfony/yaml": "~2.8|~3.0"
+            },
+            "suggest": {
+                "doctrine/annotations": "For using the annotation loader",
+                "symfony/config": "For using the all-in-one router or any loader",
+                "symfony/dependency-injection": "For loading routes from a service",
+                "symfony/expression-language": "For using expression matching",
+                "symfony/http-foundation": "For using a Symfony Request object",
+                "symfony/yaml": "For using the YAML loader"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Routing\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Routing Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "router",
+                "routing",
+                "uri",
+                "url"
+            ],
+            "time": "2016-08-16 14:58:24"
+        },
+        {
             "name": "twig/twig",
             "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "50c8024766a97c39d7c28a6ab3a34be43f2a7493"
+                "reference": "b8f1dc59c19a4831663d6be309fc73cda9d62b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/50c8024766a97c39d7c28a6ab3a34be43f2a7493",
-                "reference": "50c8024766a97c39d7c28a6ab3a34be43f2a7493",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b8f1dc59c19a4831663d6be309fc73cda9d62b93",
+                "reference": "b8f1dc59c19a4831663d6be309fc73cda9d62b93",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
+                "php": "^5.6|^7.0",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
@@ -217,7 +302,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-10-25 17:31:35"
+            "time": "2016-11-10 19:50:59"
         },
         {
             "name": "twitter/bootstrap",

@@ -1,0 +1,36 @@
+{% block collapseTwo %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                Table Department
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse {% if get_table == 'department' %} in {% endif %}">
+        <div class="panel-body">
+            <div class="pull-left" style="margin-bottom: 10px">
+                <a href="http://localhost/homework_4/index.php/department/create" class="btn btn-primary" role="button" title="Create Department"><span class="glyphicon glyphicon-plus"></span> Create Department</a>
+            </div>
+            <table class="table table-bordered col-lg-12">
+                <tr>
+                    <th>#id</th>
+                    <th>Department_Name</th>
+                    <th>University_ID</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for result in resultsDataDepartment %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.d_name }}</td>
+                        <td>{{ result.univer_id }}</td>
+                        <td><a href="http://localhost/homework_4/index.php/department/edit/{{ result.id }}" class="btn btn-warning" role="button" title="Edit Department {{ result.d_name }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <td><a href="http://localhost/homework_4/index.php/department/delete/{{ result.id }}" class="btn btn-danger" role="button" title="Delete Department {{ result.d_name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

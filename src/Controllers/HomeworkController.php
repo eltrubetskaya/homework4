@@ -8,8 +8,6 @@
 
 namespace Controllers;
 
-use Repositories\UniversityRepository;
-use Repositories\DepartmentRepository;
 use Repositories\StudentsRepository;
 use Repositories\DisciplinesRepository;
 use Repositories\TeacherRepository;
@@ -17,9 +15,7 @@ use Repositories\HomeworkRepository;
 
 class HomeworkController
 {
-    private $resultsDepartment;
-
-    private $resultsUniversity;
+    private $resultsData;
 
     private $resultsStudents;
 
@@ -39,8 +35,7 @@ class HomeworkController
      */
     public function __construct($connector)
     {
-        $this->resultsDepartment = new DepartmentRepository($connector);
-        $this->resultsUniversity = new UniversityRepository($connector);
+        $this->resultsData = new DataController($connector);
         $this->resultsStudents = new StudentsRepository($connector);
         $this->resultsDisciplines = new DisciplinesRepository($connector);
         $this->resultsTeacher = new TeacherRepository($connector);
@@ -49,29 +44,6 @@ class HomeworkController
         $this->twig = new \Twig_Environment($this->loader, array(
             'cache' => false,
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function indexAction()
-    {
-        $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
-        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
-        $resultsDataStudents = $this->resultsStudents->findAll(1000, 0);
-        $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
-        $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);
-        $resultsDataHomework = $this->resultsHomework->findAll(1000, 0);
-        $get_table = $_GET['controller'];
-        return $this->twig->render('tables.html.twig', [
-            'resultsDataUniversity' => $resultsDataUniversity,
-            'resultsDataDepartment' => $resultsDataDepartment,
-            'resultsDataStudents' => $resultsDataStudents,
-            'resultsDataDisciplines' => $resultsDataDisciplines,
-            'resultsDataTeacher' => $resultsDataTeacher,
-            'resultsDataHomework' => $resultsDataHomework,
-            'get_table' => $get_table
-        ]);
     }
 
     /**
@@ -89,7 +61,7 @@ class HomeworkController
                     'student_id' => $_POST['student_id'],
                 ]
             );
-            return $this->indexAction();
+            return $this->resultsData->indexAction('homework');
         }
         $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
         $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);
@@ -109,7 +81,7 @@ class HomeworkController
     /**
      * @return string
      */
-    public function editAction()
+    public function editAction($id)
     {
         if (isset($_POST['hw_name'])) {
             $this->resultsHomework->update(
@@ -122,10 +94,10 @@ class HomeworkController
                     'id'    => (int) $_POST['hw_id'],
                 ]
             );
-            return $this->indexAction();
+            return $this->resultsData->indexAction('homework');
         }
 
-        $resultsData = $this->resultsHomework->find((int) $_GET['id']);
+        $resultsData = $this->resultsHomework->find($id);
 
         $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
         $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);
@@ -149,15 +121,15 @@ class HomeworkController
     /**
      * @return string
      */
-    public function deleteAction()
+    public function deleteAction($id)
     {
         if (isset($_POST['hw_id'])) {
             $id = (int) $_POST['hw_id'];
             $this->resultsHomework->remove(['id' => $id]);
-            return $this->indexAction();
+            return $this->resultsData->indexAction('homework');
         }
 
-        $resultsData = $this->resultsHomework->find((int) $_GET['id']);
+        $resultsData = $this->resultsHomework->find($id);
 
         $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
         $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% block head %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>HomeWork_4</title>
+    <title>{% block title %}{% endblock %} HomeWork_4</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
@@ -19,19 +20,22 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    {% endblock %}
 </head>
 <body>
+{% block content %}
 <main class="jumbotron">
     <div class="container">
         <h1>Hello World!</h1>
         <p>
-        <form method="post" action="http://localhost/homework_4/index.php?controller=data&action=index">
+        <form method="post" action="http://localhost/homework_4/index.php/data">
             <input type="hidden" id="create_db" name="create_db" value="true">
         <input class="btn btn-primary btn-lg"  type="submit" role="button" value="Create DataBase" />
         </form>
         </p>
     </div>
 </main>
+{% endblock %}
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

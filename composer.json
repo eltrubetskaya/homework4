@@ -20,6 +20,8 @@
         "ext-mysqlnd": "*",
         "fzaninotto/faker": "^1.6",
         "twig/twig": "^2.0@dev",
-        "twitter/bootstrap": "^3.3"
+        "twitter/bootstrap": "^3.3",
+        "symfony/routing": "^3.1",
+        "symfony/http-foundation": "^3.1"
     }
 }

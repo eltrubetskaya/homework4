@@ -1,0 +1,38 @@
+{% block collapseFive %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                Table Teacher
+            </a>
+        </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse {% if get_table == 'teacher' %} in {% endif %}">
+        <div class="panel-body">
+            <div class="pull-left" style="margin-bottom: 10px">
+                <a href="http://localhost/homework_4/index.php/teacher/create" class="btn btn-primary" role="button" title="Create Discipline"><span class="glyphicon glyphicon-plus"></span> Create Discipline</a>
+            </div>
+            <table class="table table-bordered col-lg-12">
+                <tr>
+                    <th>#id</th>
+                    <th>First_Name</th>
+                    <th>Last_Name</th>
+                    <th>Department_ID</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for result in resultsDataTeacher %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.first_name }}</td>
+                        <td>{{ result.last_name }}</td>
+                        <td>{{ result.department_id }}</td>
+                        <td><a href="http://localhost/homework_4/index.php/teacher/edit/{{ result.id }}" class="btn btn-warning" role="button" title="Edit Teacher {{ result.first_name }} {{ result.last_name }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <td><a href="http://localhost/homework_4/index.php/teacher/delete/{{ result.id }}" class="btn btn-danger" role="button" title="Delete Teacher {{ result.first_name }} {{ result.last_name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

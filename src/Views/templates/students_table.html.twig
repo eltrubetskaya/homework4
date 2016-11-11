@@ -1,0 +1,40 @@
+{% block collapseThree %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                Table Students
+            </a>
+        </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse {% if get_table == 'students' %} in {% endif %}">
+        <div class="panel-body">
+            <div class="pull-left" style="margin-bottom: 10px">
+                <a href="http://localhost/homework_4/index.php/students/create" class="btn btn-primary" role="button" title="Create Student"><span class="glyphicon glyphicon-plus"></span> Create Student</a>
+            </div>
+            <table class="table table-bordered col-lg-12">
+                <tr>
+                    <th>#id</th>
+                    <th>First_Name</th>
+                    <th>Last_Name</th>
+                    <th>Email</th>
+                    <th>Phone_ Number</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for result in resultsDataStudents %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.first_name }}</td>
+                        <td>{{ result.last_name }}</td>
+                        <td>{{ result.email }}</td>
+                        <td>{{ result.tel }}</td>
+                        <td><a href="http://localhost/homework_4/index.php/students/edit/{{ result.id }}" class="btn btn-warning" role="button" title="Edit Students {{ result.First_Name }} {{ result.Last_Name }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <td><a href="http://localhost/homework_4/index.php/students/delete/{{ result.id }}" class="btn btn-danger" role="button" title="Delete Students {{ result.First_Name }} {{ result.Last_Name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

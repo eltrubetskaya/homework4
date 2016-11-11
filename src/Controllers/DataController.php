@@ -54,7 +54,7 @@ class DataController
     /**
      * @return string
      */
-    public function indexAction()
+    public function indexAction($get_table = null)
     {
         if (isset($_POST['create_db'])) {
             echo exec($this->repository->getDumpConnector());
@@ -65,7 +65,6 @@ class DataController
         $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
         $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);
         $resultsDataHomework = $this->resultsHomework->findAll(1000, 0);
-        $get_table = $_GET['controller'];
         return $this->twig->render('tables.html.twig', [
             'resultsDataUniversity' => $resultsDataUniversity,
             'resultsDataDepartment' => $resultsDataDepartment,
@@ -96,15 +95,13 @@ class DataController
         $resultsDataDisciplines = $this->repository->insertDataDisciplines();
         $resultsDataTeacher = $this->repository->insertDataTeacher();
         $resultsDataHomework = $this->repository->insertDataHomework();
-        $get_table = $_GET['controller'];
         return $this->twig->render('tables.html.twig', [
             'resultsDataUniversity' => $resultsDataUniversity,
             'resultsDataDepartment' => $resultsDataDepartment,
             'resultsDataStudents' => $resultsDataStudents,
             'resultsDataDisciplines' => $resultsDataDisciplines,
             'resultsDataTeacher' => $resultsDataTeacher,
-            'resultsDataHomework' => $resultsDataHomework,
-            'get_table' => $get_table
+            'resultsDataHomework' => $resultsDataHomework
         ]);
     }
 }

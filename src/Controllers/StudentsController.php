@@ -1,33 +1,20 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: andrey
+ * User: elena
  * Date: 07.11.16
  * Time: 15:33
  */
 
 namespace Controllers;
 
-use Repositories\UniversityRepository;
-use Repositories\DepartmentRepository;
 use Repositories\StudentsRepository;
-use Repositories\DisciplinesRepository;
-use Repositories\TeacherRepository;
-use Repositories\HomeworkRepository;
 
 class StudentsController
 {
     private $resultsStudents;
 
-    private $resultsDepartment;
-
-    private $resultsUniversity;
-
-    private $resultsDisciplines;
-
-    private $resultsTeacher;
-
-    private $resultsHomework;
+    private $resultsData;
 
     private $loader;
 
@@ -39,39 +26,12 @@ class StudentsController
      */
     public function __construct($connector)
     {
+        $this->resultsData = new DataController($connector);
         $this->resultsStudents = new StudentsRepository($connector);
-        $this->resultsDepartment = new DepartmentRepository($connector);
-        $this->resultsUniversity = new UniversityRepository($connector);
-        $this->resultsDisciplines = new DisciplinesRepository($connector);
-        $this->resultsTeacher = new TeacherRepository($connector);
-        $this->resultsHomework = new HomeworkRepository($connector);
         $this->loader = new \Twig_Loader_Filesystem('src/Views/templates/');
         $this->twig = new \Twig_Environment($this->loader, array(
             'cache' => false,
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function indexAction()
-    {
-        $resultsDataStudents = $this->resultsStudents->findAll(1000, 0);
-        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
-        $resultsDataUniversity = $this->resultsUniversity->findAll(1000, 0);
-        $resultsDataDisciplines = $this->resultsDisciplines->findAll(1000, 0);
-        $resultsDataTeacher = $this->resultsTeacher->findAll(1000, 0);
-        $resultsDataHomework = $this->resultsHomework->findAll(1000, 0);
-        $get_table = $_GET['controller'];
-        return $this->twig->render('tables.html.twig', [
-            'resultsDataUniversity' => $resultsDataUniversity,
-            'resultsDataDepartment' => $resultsDataDepartment,
-            'resultsDataStudents' => $resultsDataStudents,
-            'resultsDataDisciplines' => $resultsDataDisciplines,
-            'resultsDataTeacher' => $resultsDataTeacher,
-            'resultsDataHomework' => $resultsDataHomework,
-            'get_table' => $get_table
-        ]);
     }
 
     /**
@@ -89,7 +49,7 @@ class StudentsController
                 ]
             );
 
-            return $this->indexAction();
+            return $this->resultsData->indexAction('students');
         }
         return $this->twig->render('students_form.html.twig',
             [
@@ -105,7 +65,7 @@ class StudentsController
     /**
      * @return string
      */
-    public function editAction()
+    public function editAction($id)
     {
         if (isset($_POST['first_name'])) {
             $this->resultsStudents->update(
@@ -117,10 +77,10 @@ class StudentsController
                     'id'    => (int) $_POST['student_id'],
                 ]
             );
-            return $this->indexAction();
+            return $this->resultsData->indexAction('students');
         }
 
-        $resultsData = $this->resultsStudents->find((int) $_GET['id']);
+        $resultsData = $this->resultsStudents->find($id);
 
         return $this->twig->render('students_form.html.twig',
             [
@@ -137,15 +97,15 @@ class StudentsController
     /**
      * @return string
      */
-    public function deleteAction()
+    public function deleteAction($id)
     {
         if (isset($_POST['student_id'])) {
             $id = (int) $_POST['student_id'];
             $this->resultsStudents->remove(['id' => $id]);
-            return $this->indexAction();
+            return $this->resultsData->indexAction('students');
         }
 
-        $resultsData = $this->resultsStudents->find((int) $_GET['id']);
+        $resultsData = $this->resultsStudents->find($id);
 
         return $this->twig->render('students_form.html.twig',
             [
