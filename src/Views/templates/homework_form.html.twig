@@ -1,0 +1,51 @@
+{% extends "data.html.twig" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Table HomeWork</h1>
+        <form method="post" action="http://localhost/homework_4/index.php/homework/{{ action }}{% if action != 'create' %}/{{ hw_id }}{% endif %}">
+            <div class="row">
+                <label for="hw_name">HomeWork Name:</label>
+                <input type="hidden" id="hw_id" name="hw_id" value="{{ hw_id }}">
+                <input class="form-control" type="text" id="hw_name" name="hw_name" value="{{ hw_name }}">
+            </div>
+            <div class="row">
+                <label for="status">Status:</label>
+                <select name="status" id="status">
+                    <option value="0" {% if status == 0 %} selected {% endif %}>0</option>
+                    <option value="1" {% if status == 1 %} selected {% endif %}>1</option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="disciplines_id">Discipline_ID:</label>
+                <select name="disciplines_id" id="disciplines_id">
+                    {% for result in resultsDataDisciplines %}
+                        <option value="{{ result.id }}" {% if result.id == disciplines_id %} selected {% endif %}>{{ result.disc_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <label for="teacher_id">Teacher_ID:</label>
+                <select name="teacher_id" id="teacher_id">
+                    {% for result in resultsDataTeacher %}
+                        <option value="{{ result.id }}" {% if result.id == teacher_id %} selected {% endif %}>{{ result.first_name }} {{ result.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <label for="student_id">Student_ID:</label>
+                <select name="student_id" id="student_id">
+                    {% for result in resultsDataStudents %}
+                        <option value="{{ result.id }}" {% if result.id == student_id %} selected {% endif %}>{{ result.first_name }} {{ result.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <input class="btn btn-default" type="submit" value="{{ action }}">
+            </div>
+        </form>
+    </div>
+{% endblock %}

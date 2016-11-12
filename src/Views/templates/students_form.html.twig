@@ -1,0 +1,33 @@
+{% extends "data.html.twig" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Table Students</h1>
+        <form method="post" action="http://localhost/homework_4/index.php/students/{{ action }}{% if action != 'create' %}/{{ student_id }}{% endif %}">
+            <div class="row">
+                <label for="first_name">First Name:</label>
+                <input type="hidden" id="student_id" name="student_id" value="{{ student_id }}">
+                <input class="form-control" type="text" id="first_name" name="first_name" value="{{ first_name }}">
+            </div>
+            <div class="row">
+                <label for="last_name">Last Name:</label>
+                <input class="form-control" type="text" id="last_name" name="last_name" value="{{ last_name }}">
+            </div>
+            <div class="row">
+                <label for="email">Email:</label>
+                <input class="form-control" type="text" id="email" name="email" value="{{ email }}">
+            </div>
+            <div class="row">
+                <label for="tel">Phone Number:</label>
+                <input class="form-control" type="text" id="tel" name="tel" value="{{ tel }}">
+            </div>
+            <div class="row">
+                <input class="btn btn-default" type="submit" value="{{ action }}">
+            </div>
+        </form>
+    </div>
+
+    {% endblock %}

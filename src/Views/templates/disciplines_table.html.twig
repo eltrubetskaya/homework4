@@ -1,0 +1,36 @@
+{% block collapseFour %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                Table Disciplines
+            </a>
+        </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse {% if get_table == 'disciplines' %} in {% endif %}">
+        <div class="panel-body">
+            <div class="pull-left" style="margin-bottom: 10px">
+                <a href="http://localhost/homework_4/index.php/disciplines/create" class="btn btn-primary" role="button" title="Create Discipline"><span class="glyphicon glyphicon-plus"></span> Create Discipline</a>
+            </div>
+            <table class="table table-bordered col-lg-12">
+                <tr>
+                    <th>#id</th>
+                    <th>Discipline_Name</th>
+                    <th>Department_ID</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for result in resultsDataDisciplines %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.disc_name }}</td>
+                        <td>{{ result.department_id }}</td>
+                        <td><a href="http://localhost/homework_4/index.php/disciplines/edit/{{ result.id }}" class="btn btn-warning" role="button" title="Edit Discipline {{ result.disc_name }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <td><a href="http://localhost/homework_4/index.php/disciplines/delete/{{ result.id }}" class="btn btn-danger" role="button" title="Delete Discipline {{ result.disc_name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

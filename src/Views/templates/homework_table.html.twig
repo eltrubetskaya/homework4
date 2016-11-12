@@ -1,0 +1,42 @@
+{% block collapseSix %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                Table HomeWork
+            </a>
+        </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse {% if get_table == 'homework' %} in {% endif %}">
+        <div class="panel-body">
+            <div class="pull-left" style="margin-bottom: 10px">
+                <a href="http://localhost/homework_4/index.php/homework/create" class="btn btn-primary" role="button" title="Create Discipline"><span class="glyphicon glyphicon-plus"></span> Create Discipline</a>
+            </div>
+            <table class="table table-bordered col-lg-12">
+                <tr>
+                    <th>#id</th>
+                    <th>Homework_Name</th>
+                    <th>Status</th>
+                    <th>Disciplines_ID</th>
+                    <th>Teacher_ID</th>
+                    <th>Students_ID</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for result in resultsDataHomework %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.hw_name }}</td>
+                        <td>{{ result.status }}</td>
+                        <td>{{ result.disciplines_id }}</td>
+                        <td>{{ result.teacher_id }}</td>
+                        <td>{{ result.student_id }}</td>
+                        <td><a href="http://localhost/homework_4/index.php/homework/edit/{{ result.id }}" class="btn btn-warning" role="button" title="Edit HomeWork {{ result.hw_name }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <td><a href="http://localhost/homework_4/index.php/homework/delete/{{ result.id }}" class="btn btn-danger" role="button" title="Delete HomeWork {{ result.hw_name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

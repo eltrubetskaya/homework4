@@ -1,0 +1,38 @@
+{% block collapseOne %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                Table University
+            </a>
+        </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse {% if get_table == 'university' %} in {% endif %}">
+        <div class="panel-body">
+            <div class="pull-left" style="margin-bottom: 10px">
+                <a href="http://localhost/homework_4/index.php/university/create" class="btn btn-primary" role="button" title="Create Univer"><span class="glyphicon glyphicon-plus"></span> Create University</a>
+            </div>
+            <table class="table table-bordered col-lg-12">
+                <tr>
+                    <th>#id</th>
+                    <th>University_Name</th>
+                    <th>City</th>
+                    <th>Site</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for result in resultsDataUniversity %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.univer_name }}</td>
+                        <td>{{ result.city }}</td>
+                        <td>{{ result.site }}</td>
+                        <td><a href="http://localhost/homework_4/index.php/university/edit/{{ result.id }}" class="btn btn-warning" role="button" title="Edit University {{ result.univer_name }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <td><a href="http://localhost/homework_4/index.php/university/delete/{{ result.id }}" class="btn btn-danger" role="button" title="Delete University {{ result.univer_name }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

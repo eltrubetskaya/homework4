@@ -1,0 +1,48 @@
+{% extends "data.html.twig" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+<section class="jumbotron">
+    <div class="container">
+        <p><a href="http://localhost/homework_4/index.php/data/insert" class="btn btn-primary btn-lg" role="button" title="Create Data in Table's"><span class="glyphicon glyphicon-plus"></span> Insert Data in Table's</a></p>
+    </div>
+</section>
+<main class="container">
+    <div class="panel-group" id="accordion">
+        {% embed "university_table.html.twig" %}
+            {% block collapseOne %}
+                {{ parent() }}
+            {% endblock %}
+        {% endembed %}
+        {% embed "department_table.html.twig" %}
+            {% block collapseTwo %}
+                {{ parent() }}
+            {% endblock %}
+        {% endembed %}
+        {% embed "students_table.html.twig" %}
+            {% block collapseThree %}
+                {{ parent() }}
+            {% endblock %}
+        {% endembed %}
+        {% embed "disciplines_table.html.twig" %}
+            {% block collapseFour %}
+                {{ parent() }}
+            {% endblock %}
+        {% endembed %}
+        {% embed "teacher_table.html.twig" %}
+            {% block collapseFive %}
+                {{ parent() }}
+            {% endblock %}
+        {% endembed %}
+        {% embed "homework_table.html.twig" %}
+            {% block collapseSix %}
+                {{ parent() }}
+            {% endblock %}
+        {% endembed %}
+    </div>
+</main>
+{% endblock %}
+
+

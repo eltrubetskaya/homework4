@@ -1,0 +1,126 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: elena
+ * Date: 07.11.16
+ * Time: 18:10
+ */
+
+namespace Controllers;
+
+use Repositories\DepartmentRepository;
+use Repositories\TeacherRepository;
+
+class TeacherController
+{
+    private $resultsData;
+
+    private $resultsDepartment;
+
+    private $resultsTeacher;
+
+    private $loader;
+
+    private $twig;
+
+    /**
+     * TeacherController constructor.
+     * @param $connector
+     */
+    public function __construct($connector)
+    {
+        $this->resultsData = new DataController($connector);
+        $this->resultsTeacher = new TeacherRepository($connector);
+        $this->resultsDepartment = new DepartmentRepository($connector);
+        $this->loader = new \Twig_Loader_Filesystem('src/Views/templates/');
+        $this->twig = new \Twig_Environment($this->loader, array(
+            'cache' => false,
+        ));
+    }
+
+    /**
+     * @return string
+     */
+    public function createAction()
+    {
+        if (isset($_POST['first_name'])) {
+            $this->resultsTeacher->insert(
+                [
+                    'first_name' => $_POST['first_name'],
+                    'last_name'  => $_POST['last_name'],
+                    'department_id' => $_POST['department_id'],
+                ]
+            );
+
+            return $this->resultsData->indexAction('teacher');
+        }
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+        return $this->twig->render('teacher_form.html.twig',
+            [
+                'first_name' => '',
+                'last_name' => '',
+                'resultsDataDepartment' => $resultsDataDepartment,
+                'action' => 'create'
+            ]
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function editAction($id)
+    {
+        if (isset($_POST['first_name'])) {
+            $this->resultsTeacher->update(
+                [
+                    'first_name' => $_POST['first_name'],
+                    'last_name'  => $_POST['last_name'],
+                    'department_id'      => $_POST['department_id'],
+                    'id'    => (int) $_POST['th_id'],
+                ]
+            );
+            return $this->resultsData->indexAction('teacher');
+        }
+
+        $resultsData = $this->resultsTeacher->find($id);
+
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+
+        return $this->twig->render('teacher_form.html.twig',
+            [
+                'first_name' => $resultsData['first_name'],
+                'last_name' => $resultsData['last_name'],
+                'department_id' => $resultsData['department_id'],
+                'th_id' => $resultsData['id'],
+                'resultsDataDepartment' => $resultsDataDepartment,
+                'action' => 'edit'
+            ]
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function deleteAction($id)
+    {
+        if (isset($_POST['th_id'])) {
+            $id = (int) $_POST['th_id'];
+            $this->resultsTeacher->remove(['id' => $id]);
+            return $this->resultsData->indexAction('teacher');
+        }
+
+        $resultsData = $this->resultsTeacher->find($id);
+
+        $resultsDataDepartment = $this->resultsDepartment->findAll(1000, 0);
+        return $this->twig->render('teacher_form.html.twig',
+            [
+                'first_name' => $resultsData['first_name'],
+                'last_name' => $resultsData['last_name'],
+                'department_id' => $resultsData['department_id'],
+                'th_id' => $resultsData['id'],
+                'resultsDataDepartment' => $resultsDataDepartment,
+                'action' => 'delete'
+            ]
+        );
+    }
+}
