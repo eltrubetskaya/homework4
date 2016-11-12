@@ -8,8 +8,26 @@
 
 namespace Repositories;
 
+/**
+ * This is class for table "homework".
+ *
+ * @property integer $id
+ * @property string $hw_name
+ * @property boolean $status
+ * @property integer $disciplines_id
+ * @property integer $teacher_id
+ * @property integer $student_id
+ */
+
 class HomeworkRepository extends AbstractRepository implements RepositoryInterface
 {
+    public $id;
+    public $hw_name;
+    public $status;
+    public $disciplines_id;
+    public $teacher_id;
+    public $student_id;
+
     /**
      * Insert new entity data to the DB
      * @param array $entityData
@@ -29,7 +47,7 @@ class HomeworkRepository extends AbstractRepository implements RepositoryInterfa
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM homework');
         $statement->execute();
 
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, HomeworkRepository::class);
     }
 
     /**
@@ -91,7 +109,7 @@ class HomeworkRepository extends AbstractRepository implements RepositoryInterfa
         $statement->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
         $statement->bindValue(':offset', (int) $offset, \PDO::PARAM_INT);
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, HomeworkRepository::class);
     }
 
     /**

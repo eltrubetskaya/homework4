@@ -8,8 +8,21 @@
 
 namespace Repositories;
 
+/**
+ * This is class for table "teacher".
+ *
+ * @property integer $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property integer $department_id
+ */
+
 class TeacherRepository extends AbstractRepository implements RepositoryInterface
 {
+    public $id;
+    public $first_name;
+    public $last_name;
+    public $department_id;
     /**
      * Insert new entity data to the DB
      * @param array $entityData
@@ -27,7 +40,7 @@ class TeacherRepository extends AbstractRepository implements RepositoryInterfac
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM teacher');
         $statement->execute();
 
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, TeacherRepository::class);
     }
 
     /**
@@ -87,7 +100,7 @@ class TeacherRepository extends AbstractRepository implements RepositoryInterfac
         $statement->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
         $statement->bindValue(':offset', (int) $offset, \PDO::PARAM_INT);
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, TeacherRepository::class);
     }
 
     /**

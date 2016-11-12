@@ -28,11 +28,11 @@ class Connector
      */
     public function __construct($databasename, $user, $pass)
     {
-        $this->pdo = new \PDO('mysql:host=localhost;dbname=' . $databasename . ';charset=UTF8', $user, $pass);
-        $this->dump ='mysql -u'.$user.' -p'.$pass.' < /var/www/html/homework_4/data.sql';
-        if (!$this->pdo) {
-            return false;
-            //throw new Exception('Error connecting to the database');
+        try {
+            $this->pdo = new \PDO('mysql:host=localhost;dbname=' . $databasename . ';charset=UTF8', $user, $pass);
+            $this->dump ='mysql -u'.$user.' -p'.$pass.' < /var/www/html/homework_4/data.sql';
+        } catch (PDOException $e) {
+            echo 'Подключение не удалось: ' . $e->getMessage();
         }
     }
 

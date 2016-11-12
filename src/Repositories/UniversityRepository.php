@@ -8,8 +8,21 @@
 
 namespace Repositories;
 
+/**
+ * This is class for table "university".
+ *
+ * @property integer $id
+ * @property string $univer_name
+ * @property string $city
+ * @property string $site
+ */
+
 class UniversityRepository extends AbstractRepository implements RepositoryInterface
 {
+    public $id;
+    public $univer_name;
+    public $city;
+    public $site;
 
     /**
      * Insert new entity data to the DB
@@ -28,7 +41,7 @@ class UniversityRepository extends AbstractRepository implements RepositoryInter
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM university');
         $statement->execute();
 
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, UniversityRepository::class);
     }
 
     /**
@@ -88,7 +101,7 @@ class UniversityRepository extends AbstractRepository implements RepositoryInter
         $statement->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
         $statement->bindValue(':offset', (int) $offset, \PDO::PARAM_INT);
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, UniversityRepository::class);
     }
 
     /**

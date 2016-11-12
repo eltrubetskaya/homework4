@@ -18,9 +18,9 @@ $routes->add('university_create', new Routing\Route('/university/create', array(
 $routes->add('university_edit', new Routing\Route('/university/edit/{id}', array('controller' => 'UniversityController', 'id' => '{id}', 'action' => 'editAction')));
 $routes->add('university_delete', new Routing\Route('/university/delete/{id}', array('controller' => 'UniversityController', 'id' => '{id}', 'action' => 'deleteAction')));
 
-$routes->add('departmen_create', new Routing\Route('/departmen/create', array('controller' => 'DepartmenController', 'action' => 'createAction')));
-$routes->add('departmen_edit', new Routing\Route('/departmen/edit/{id}', array('controller' => 'DepartmenController', 'id' => '{id}', 'action' => 'editAction')));
-$routes->add('departmen_delete', new Routing\Route('/departmen/delete/{id}', array('controller' => 'DepartmenController', 'id' => '{id}', 'action' => 'deleteAction')));
+$routes->add('department_create', new Routing\Route('/department/create', array('controller' => 'DepartmentController', 'action' => 'createAction')));
+$routes->add('department_edit', new Routing\Route('/department/edit/{id}', array('controller' => 'DepartmentController', 'id' => '{id}', 'action' => 'editAction')));
+$routes->add('department_delete', new Routing\Route('/department/delete/{id}', array('controller' => 'DepartmentController', 'id' => '{id}', 'action' => 'deleteAction')));
 
 $routes->add('disciplines_create', new Routing\Route('/disciplines/create', array('controller' => 'DisciplinesController', 'action' => 'createAction')));
 $routes->add('disciplines_edit', new Routing\Route('/disciplines/edit/{id}', array('controller' => 'DisciplinesController', 'id' => '{id}', 'action' => 'editAction')));

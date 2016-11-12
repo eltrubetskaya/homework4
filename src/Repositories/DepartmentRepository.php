@@ -8,8 +8,19 @@
 
 namespace Repositories;
 
+/**
+ * This is class for table "department".
+ *
+ * @property integer $id
+ * @property string $d_name
+ * @property integer $univer_id
+ */
+
 class DepartmentRepository extends AbstractRepository implements RepositoryInterface
 {
+    public $id;
+    public $d_name;
+    public $univer_id;
 
     /**
      * Insert new entity data to the DB
@@ -27,7 +38,7 @@ class DepartmentRepository extends AbstractRepository implements RepositoryInter
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM department');
         $statement->execute();
 
-        return $this->fetchResultsData($statement);
+        return  $statement->fetchAll(\PDO::FETCH_CLASS, DepartmentRepository::class);
     }
 
     /**
@@ -38,7 +49,6 @@ class DepartmentRepository extends AbstractRepository implements RepositoryInter
     public function update(array $entityData)
     {
         $statement = $this->getConnector()->getPdo()->prepare("UPDATE department SET d_name = :d_name, univer_id = :univer_id WHERE id = :id");
-
         $statement->bindValue(':d_name', $entityData['d_name'], \PDO::PARAM_STR);
         $statement->bindValue(':univer_id', $entityData['univer_id'], \PDO::PARAM_INT);
         $statement->bindValue(':id', $entityData['id'], \PDO::PARAM_INT);
@@ -54,7 +64,6 @@ class DepartmentRepository extends AbstractRepository implements RepositoryInter
     public function remove(array $entityData)
     {
         $statement = $this->getConnector()->getPdo()->prepare("DELETE FROM department WHERE id = :id");
-
         $statement->bindValue(':id', $entityData['id'], \PDO::PARAM_INT);
 
         return $statement->execute();
@@ -71,6 +80,7 @@ class DepartmentRepository extends AbstractRepository implements RepositoryInter
         $statement->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $statement->execute();
         $resultsData = $this->fetchResultsData($statement);
+
         return $resultsData[0];
     }
 
@@ -86,7 +96,8 @@ class DepartmentRepository extends AbstractRepository implements RepositoryInter
         $statement->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
         $statement->bindValue(':offset', (int) $offset, \PDO::PARAM_INT);
         $statement->execute();
-        return $this->fetchResultsData($statement);
+
+        return $statement->fetchAll(\PDO::FETCH_CLASS, DepartmentRepository::class);
     }
 
     /**

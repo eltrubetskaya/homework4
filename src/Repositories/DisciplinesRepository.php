@@ -8,8 +8,20 @@
 
 namespace Repositories;
 
+/**
+ * This is class for table "disciplines".
+ *
+ * @property integer $id
+ * @property string $disc_name
+ * @property integer $department_id
+ */
+
 class DisciplinesRepository extends AbstractRepository implements RepositoryInterface
 {
+    public $id;
+    public $disc_name;
+    public $department_id;
+
     /**
      * Insert new entity data to the DB
      * @param array $entityData
@@ -26,7 +38,7 @@ class DisciplinesRepository extends AbstractRepository implements RepositoryInte
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM disciplines');
         $statement->execute();
 
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, DisciplinesRepository::class);
     }
 
     /**
@@ -85,7 +97,7 @@ class DisciplinesRepository extends AbstractRepository implements RepositoryInte
         $statement->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
         $statement->bindValue(':offset', (int) $offset, \PDO::PARAM_INT);
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, DisciplinesRepository::class);
     }
 
     /**

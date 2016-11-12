@@ -25,7 +25,7 @@ class DataRepository extends AbstractRepository implements DataInterface
         }
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM university');
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, UniversityRepository::class);
     }
 
      /**
@@ -45,7 +45,7 @@ class DataRepository extends AbstractRepository implements DataInterface
         }
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM department');
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, DepartmentRepository::class);
     }
 
     /**
@@ -64,7 +64,7 @@ class DataRepository extends AbstractRepository implements DataInterface
         }
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM students');
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, StudentsRepository::class);
     }
 
     /**
@@ -84,7 +84,7 @@ class DataRepository extends AbstractRepository implements DataInterface
         }
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM disciplines');
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, DisciplinesRepository::class);
     }
 
     /**
@@ -105,7 +105,7 @@ class DataRepository extends AbstractRepository implements DataInterface
         }
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM teacher');
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, TeacherRepository::class);
     }
 
     /**
@@ -137,6 +137,6 @@ class DataRepository extends AbstractRepository implements DataInterface
         }
         $statement = $this->getConnector()->getPdo()->prepare('SELECT * FROM homework');
         $statement->execute();
-        return $this->fetchResultsData($statement);
+        return $statement->fetchAll(\PDO::FETCH_CLASS, HomeworkRepository::class);
     }
 }
